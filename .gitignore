@@ -1,0 +1,28 @@
+.gradle
+build/
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### IntelliJ IDEA ###
+.idea/
+*.iws
+*.iml
+*.ipr
+*.log
+*.jpeg
+*.jpg
+*.png
+
+### Logs ###
+/src/test_logs/
+/src/test_screenshots/
+
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/
+
+
+
+
+

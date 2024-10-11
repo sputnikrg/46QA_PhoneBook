@@ -1,0 +1,34 @@
+<configuration>
+    <timestamp key="bySecond" datePattern="dd'T'HHmmss"/>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <!--    ! паттерн вывода логов-->
+        <!--%d{HH:mm:ss.SSS} - Временная метка в часах, минутах, секундах и миллисекундах.-->
+        <!--[%thread] - Имя потока, который записал сообщение.-->
+        <!--%-5level - Уровень логирования (например, DEBUG, INFO, WARN, ERROR), дополненный до 5 символов.-->
+        <!--%logger{36} - Имя логгера, обрезанное до 36 символов, если оно длиннее.-->
+        <!-- -%kvp- - Пары ключ-значение, если есть.-->
+        <!--%msg - Само сообщение лога.-->
+        <!--%n - Символ новой строки, зависящий от платформы.-->
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} -%kvp- %msg%n</pattern>
+        </encoder>
+    </appender>
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+        <file>src/test_logs/log-${bySecond}.log</file>
+        <append>true</append>
+        <immediateFlush>true</immediateFlush>
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{35} -%kvp- %msg%n</pattern>
+        </encoder>
+    </appender>
+    <!-- ! <root level="debug">&ndash;&gt; Меняем уровень логирования на INFO-->
+    <logger name="org.testng.internal.Utils" level="warn"/>
+    <root level="info">
+        <!--        DEBUG - Отладочные сообщения, используемые для диагностики.-->
+        <!--        INFO - Информационные сообщения, описывающие нормальную работу.-->
+        <!--        WARN - Предупреждения о потенциальных проблемах.-->
+        <!--        ERROR - Ошибки, которые требуют немедленного внимания.        -->
+        <appender-ref ref="STDOUT" />
+        <appender-ref ref="FILE" />
+    </root>
+</configuration>

@@ -1,0 +1,35 @@
+plugins {
+    id 'java'
+}
+
+group = 'com.example'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '4.25.0'
+    implementation group: 'org.testng', name: 'testng', version: '7.10.2'
+    //implementation 'org.slf4j:slf4j-nop:2.0.7'
+    implementation group: 'ch.qos.logback', name: 'logback-classic', version: '1.5.9'
+}
+
+test {
+    useTestNG()
+}
+
+def registerTask(String taskName, String suitePath) {
+    tasks.register(taskName, Test) {
+        useTestNG() {
+            suites suitePath
+        }
+        if (project.hasProperty('browser')) {
+            systemProperty('browser', "${browser}")
+        }
+    }
+}
+
+registerTask('smoke','src/test/resources/smoke.xml')
+registerTask('regression','src/test/resources/regression.xml')
